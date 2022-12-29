@@ -65,7 +65,7 @@ bot.on('pre_checkout_query', (ctx) => {
 }) // ответ на предварительный запрос по оплате
 
 bot.on('successful_payment', async (ctx, next) => { // ответ в случае положительной оплаты
-    console.log(ctx);
+
     let tgLink = "<a href='https://t.me/" + ctx.chat.username + "'>" + ctx.chat.username + "</a>";
     let payDate = new Date(ctx.date * 1000);
     payDate.setMilliseconds(2 * 60 * 60 * 1000);
