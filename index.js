@@ -1,9 +1,9 @@
 const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config()
+// require('dotenv').config()
 
-const token = '5936516498:AAF30eMBr5GN630SadmFZf8JdnAdun6LUyY';
+const token = '5933906901:AAEFET9FVkomvLHysberxvskhhzdgmOSraI';
 
 const bot = new TelegramBot(token, {polling: true});
 const app = express();
@@ -11,37 +11,43 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const webAppUrl = 'https://prismatic-marzipan-caaf15.netlify.app/';
+const webAppUrl = 'https://superb-bubblegum-2fe1c0.netlify.app/';
 
-bot.onText(/message/, async (msg) => {
+bot.on('message', async (msg) => {
     this.chatId = msg.chat.id;
     const text = msg.text;
 
     if (text === '/start') {
-        // await bot.sendMessage(this.chatId, "Обери собі курс до душі", {
-        //     reply_markup: {
-        //         keyboard: [
-        //            [{text: 'Огляд та оплата курсів', web_app: {url: webAppUrl}}],
-        //         ]
-        //     }
-        // });
+        await bot.sendMessage(this.chatId, 'Натискай кнопку "Оплатити" внизу '/*, {
+            reply_markup: {
+                keyboard: [
+                   [{text: 'Огляд та оплата курсів', web_app: {url: webAppUrl}}],
+                ]
+            }
+        }*/);
     }
 
 });
 
 app.post('/web-data', async (req, res) => {
+    console.log(req);
     const {queryId, order} = req.body;
-    global.CourseName = order.course_name;
+
+    global.name = order.name;
+    global.text_sm = order.text_sm;
+    global.sm = order.sm;
+    global.text_lg = order.text_lg;
+    global.lg = order.lg;
+    order.addit ? global.additional = 'Додаткове обладнання потрібне' : global.additional = 'Додаткове обладнання не потрібне';
     try {
 
         /*await bot.sendInvoice(this.chatId, order.course_name, '123', 'payload','632593626:TEST:sandbox_i41389891898', 'UAH', [{label: 'Ціна', amount: order.sum_to_pay*100}]);*/
 
         const url = await bot.createInvoiceLink(
-            order.course_name,
-            'Оплата за ' + order.descr,
+            order.name,
+            order.text_sm + " " + order.sm + " " + order.text_lg + " " + order.lg,
             'payload',
-            '635983722:LIVE:i60354245141',
-            /*'632593626:TEST:sandbox_i41389891898',*/
+            '632593626:TEST:sandbox_i61838863716',
             'UAH',
             [{label: 'Ціна', amount: order.sum_to_pay * 100}],
             {
@@ -81,7 +87,7 @@ bot.on('successful_payment', async (ctx, next) => { // ответ в случа�
     payDate.setMilliseconds(2 * 60 * 60 * 1000);
     await bot.sendMessage(
         1497795260,
-        "Оплата за курс: " + CourseName + "\n" +
+        "Оплата за: " + name + "\n" +
         "Сума:" + ctx.successful_payment.total_amount / 100 + "грн \n" +
         "ПІБ: " + ctx.successful_payment.order_info.name + "\n" +
         "Телефон: " + ctx.successful_payment.order_info.phone_number + "\n" +
@@ -96,7 +102,9 @@ bot.on('successful_payment', async (ctx, next) => { // ответ в случа�
         "<b>Дякуємо!</b> \n" +
         "\n"+
         "Ви успішно оплатили " + ctx.successful_payment.total_amount / 100 + "грн \n" +
-        "за курс " + CourseName + "\n" +
+        "за " + name + ". \n" +
+        text_sm + ": " + sm + ". \n" +
+        text_lg + ": " + lg + ". \n" +
         "Якщо у вас виникли питання - звертайтесь до адміністратора \n" +
         "<a href='https://t.me/t_khimich'>Адміністратор</a>",
         {parse_mode: 'HTML'}
