@@ -74,6 +74,7 @@ bot.on('successful_payment', async (ctx, next) => { // ответ в случа�
         "Оплата за: " + name + "\n" +
         text_sm + ": " + sm + ". \n" +
         text_lg + ": " + lg + ". \n" +
+        additional + ". \n" +
         "Сума:" + ctx.successful_payment.total_amount / 100 + "грн \n" +
         "ПІБ: " + ctx.successful_payment.order_info.name + "\n" +
         "Телефон: " + ctx.successful_payment.order_info.phone_number + "\n" +
@@ -91,6 +92,7 @@ bot.on('successful_payment', async (ctx, next) => { // ответ в случа�
         "за " + name + ". \n" +
         text_sm + ": " + sm + ". \n" +
         text_lg + ": " + lg + ". \n" +
+        additional + ". \n" +
         "Якщо у вас виникли питання - звертайтесь до адміністратора \n" +
         "<a href='https://t.me/t_khimich'>Адміністратор</a>",
         {parse_mode: 'HTML'}
