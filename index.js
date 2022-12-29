@@ -72,6 +72,8 @@ bot.on('successful_payment', async (ctx, next) => { // ответ в случа�
     await bot.sendMessage(
         1497795260,
         "Оплата за: " + name + "\n" +
+        text_sm + ": " + sm + ". \n" +
+        text_lg + ": " + lg + ". \n" +
         "Сума:" + ctx.successful_payment.total_amount / 100 + "грн \n" +
         "ПІБ: " + ctx.successful_payment.order_info.name + "\n" +
         "Телефон: " + ctx.successful_payment.order_info.phone_number + "\n" +
