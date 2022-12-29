@@ -18,13 +18,7 @@ bot.on('message', async (msg) => {
     const text = msg.text;
 
     if (text === '/start') {
-        await bot.sendMessage(this.chatId, 'Натискай кнопку "Оплатити" внизу '/*, {
-            reply_markup: {
-                keyboard: [
-                   [{text: 'Огляд та оплата курсів', web_app: {url: webAppUrl}}],
-                ]
-            }
-        }*/);
+        await bot.sendMessage(this.chatId, 'Натискай кнопку "Оплатити" внизу ');
     }
 
 });
@@ -41,8 +35,6 @@ app.post('/web-data', async (req, res) => {
     order.addit ? global.additional = 'Додаткове обладнання потрібне' : global.additional = 'Додаткове обладнання не потрібне';
     try {
 
-        /*await bot.sendInvoice(this.chatId, order.course_name, '123', 'payload','632593626:TEST:sandbox_i41389891898', 'UAH', [{label: 'Ціна', amount: order.sum_to_pay*100}]);*/
-
         const url = await bot.createInvoiceLink(
             order.name,
             order.text_sm + " " + order.sm + " " + order.text_lg + " " + order.lg,
@@ -57,14 +49,6 @@ app.post('/web-data', async (req, res) => {
                 need_shipping_address: false,
             }
         );
-       /* await bot.answerWebAppQuery(queryId, {
-            type: 'article',
-            id: queryId,
-            title: 'Успешная покупка',
-            input_message_content: {
-                message_text: url,
-            }
-        });*/
 
         return res.json(url);
     } catch (e) {
