@@ -22,11 +22,7 @@ bot.on('message', async (msg) => {
     }
 
     if (text === '/info') {
-        const message = `Інформація про компанію:\n
-                         ФОП Шептура Олексій Ігорович\n
-                         Ідентифікаційний код: 3352515250\n
-                         Телефони: +38(068)-492-30-36\n
-                         Email: h1razzaraz@gmail.com`
+        const message = `Інформація про компанію:\nФОП Шептура Олексій Ігорович\nІдентифікаційний код: 3352515250\nТелефони: +38(068)-492-30-36\nEmail: h1razzaraz@gmail.com`
         await bot.sendMessage(this.chatId, message);
     }
 
