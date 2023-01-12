@@ -59,7 +59,7 @@ app.post('/web-data', async (req, res) => {
             order.name,
             order.text_sm + " " + order.sm + " " + order.text_lg + " " + order.lg,
             'payload',
-            '632593626:TEST:sandbox_i61838863716',
+            '635983722:LIVE:i32449194718',
             'UAH',
             [{label: 'Ціна', amount: order.sum_to_pay * 100}],
             {
